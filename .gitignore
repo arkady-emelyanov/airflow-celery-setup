@@ -1,0 +1,12 @@
+# postgresql database is ignored
+postgres-data/*
+!postgres-data/.gitkeep
+
+# redis dump is ignored
+redis-data/*
+!redis-data/.gitkeep
+
+# ignore pid and logs
+airflow-data/airflow-webserver.pid
+airflow-data/logs/*
+!airflow-data/logs/.gitkeep

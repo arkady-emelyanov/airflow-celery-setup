@@ -1,0 +1,47 @@
+version: '2'
+
+services:
+  master:
+    build: ./airflow-master
+    container_name: airflow-master
+    command: "/etc/compose-config/run.sh"
+    volumes:
+      - "./airflow-data:/data"
+    ports:
+      - "8080:8080"
+    links:
+      - "redis"
+      - "postgres"
+    environment:
+      AIRFLOW_HOME: "/data"
+
+  worker:
+    build: ./airflow-worker
+    container_name: airflow-worker
+    command: "/etc/compose-config/run.sh"
+    volumes:
+      - "./airflow-data:/data"
+    depends_on:
+      - "master"
+    links:
+      - "redis"
+      - "postgres"
+    environment:
+      AIRFLOW_HOME: "/data"
+
+  redis:
+    image: redis:3.2-alpine
+    container_name: redis
+    volumes:
+      - "./redis-data:/data"
+
+  postgres:
+    image: postgres:9.6-alpine
+    container_name: postgres
+    volumes:
+      - "./postgres-data:/data"
+    environment:
+      PGDATA: "/data/postgres"
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
