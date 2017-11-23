@@ -21,6 +21,6 @@ $ docker-compose up
 
 1. Navigate: `http://127.0.0.1:8080/admin/`
 1. Switch on `cronlike_dag`
-1. Navigate `http://localhost:8080/admin/dagrun/`
+1. Navigate `http://127.0.0.1:8080/admin/dagrun/`
 1. Watch the results..
 
